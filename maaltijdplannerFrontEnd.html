@@ -1,0 +1,70 @@
+<html>
+
+	<head>
+		<style src="style.css"></style>
+		<script src="scriptIngredientEndpoint.js"></script>	
+		<script src="scriptRecipeEndpoint.js"></script>
+		<script src="scriptGeneral.js"></script>
+	</head>
+
+	<body>
+	
+	<input type="button" value="CreateTable" onclick="getIngredientTable()">
+	<div id="ingredientTable"></div>
+	
+	<br>
+	<br>
+	Voeg nieuw ingredient toe aan de database: <br>
+	<label for="postNaamIngredient">Ingredient naam: </label>
+	<input type="text" value="Naam ingredient" id="postNaamIngredient">
+	<input type="button" value="Voeg ingredient toe" onclick="addIngredient()">
+	
+	<br>
+	<br>
+	
+	Update waarde protein_g van een ingredient in de database: <br>
+	<label for="idUpdatedIngredient"> Ingredient Id: </label>
+	<input type="text" value="Id ingredient" id="IdUpdatedIngredient"><br>
+	<label for="updateProtein_gIngredient"> protein_g: </label>
+	<input type="text" value="Nieuwe waarde" id="updateProtein_gIngredient">
+	<input type="button" value="updateProtein_g" onclick="updateIngredientProtein_gValue()">
+	
+	<br>
+	<br>
+	
+	Get ingredient name by id: <br>
+	<label for ="getIngredeintByid"> Ingredient Id: </label>
+	<input type="text" value = "1" id="ingredientIdInput"><input type="button" value="submit" onclick="getIngredientById()"><div id="ingredientIdOutput"></div>
+	
+	<br>
+	<br>
+
+	Voeg nieuw recept toe aan de database:
+	
+	<br>
+	
+	Receptnaam: <input type="text" value="Recipe name" id="postNameRecipe">
+	<br>
+	Ingredienten: 
+	<br>
+	<input type="text" value="Ingredient ID" id="ID1">
+	<br>
+	<input type="text" value="Ingredient ID" id="ID2">
+	<br>
+	Receptbeschrijving:
+	<br>
+	<textarea type="text" value="Beschrijving" id="recipeDescription"></textarea>
+	<br>
+	<input type="button" value="submit new recipe" onclick="addNewRecipe()">
+	
+	<br>
+	<br>
+	<br>
+	
+	Send recipe to:
+	<input type="text" value="Naam recept" id="mailRecipeNameInput">
+	<input type="email" value="michielherpers@gmail.com" id="mailAdressInput">
+	<input type="button" value="Send recipe via mail" onclick="sendRecipeByMail()">
+	</body>
+
+</html>
