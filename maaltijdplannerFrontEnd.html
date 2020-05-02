@@ -1,40 +1,61 @@
 <html>
 
 	<head>
-		<style src="style.css"></style>
+		<!-- deze link komt van getbootstrap.com en dan get started, ik heb geleerd om naar cs te linken met de link tag, dus dat zo aangepast. Het is belangrijk dat je eigen stylesheet onder die van bootstrap staat-->
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="style.css" type="text/css">
 		<script src="scriptIngredientEndpoint.js"></script>	
 		<script src="scriptRecipeEndpoint.js"></script>
 		<script src="scriptGeneral.js"></script>
 	</head>
 
-	<body>
+	<body class="m-5 color-groen">
+		<!-- m-X is om een preset margin te kiezen, de rand om je elementen heen. nu toegepast op body, maar kan dus ook op 1 button-->
 	
-	<input type="button" value="CreateTable" onclick="getIngredientTable()">
-	<div id="ingredientTable"></div>
+	<div>	
+		<input type="button" value="CreateTable" onclick="getIngredientTable()" class="btn bg-groen color-groen" >
+		<div id="ingredientTable"></div>
+	</div>
+
+	<br>
+	<br>
+
+	<Section class="form">
+		Voeg nieuw ingredient toe aan de database: <br>
+		<div class="row"> <!-- row en col hebben te maken met grid, dit is een manier om uitlijning voor elkaar te krijgen, niet de enige manier-->
+			<label for="postNaamIngredient" class="col-2 m-1">Ingredient naam: </label>
+			<input type="text" value="Naam ingredient" id="postNaamIngredient" class="form-control col-3 m-1">
+			<input type="button" value="Voeg ingredient toe" class="btn bg-groen color-groen col-3 m-1"onclick="addIngredient()">
+		</div>
+	</Section>
 	
 	<br>
 	<br>
-	Voeg nieuw ingredient toe aan de database: <br>
-	<label for="postNaamIngredient">Ingredient naam: </label>
-	<input type="text" value="Naam ingredient" id="postNaamIngredient">
-	<input type="button" value="Voeg ingredient toe" onclick="addIngredient()">
 	
-	<br>
-	<br>
-	
-	Update waarde protein_g van een ingredient in de database: <br>
-	<label for="idUpdatedIngredient"> Ingredient Id: </label>
-	<input type="text" value="Id ingredient" id="IdUpdatedIngredient"><br>
-	<label for="updateProtein_gIngredient"> protein_g: </label>
-	<input type="text" value="Nieuwe waarde" id="updateProtein_gIngredient">
-	<input type="button" value="updateProtein_g" onclick="updateIngredientProtein_gValue()">
-	
+	<section>
+		Update waarde protein_g van een ingredient in de database: <br>
+		<div class="row"> 
+			<label for="idUpdatedIngredient" class="col-2 m-1"> Ingredient Id: </label>
+			<input type="text" value="Id ingredient" id="IdUpdatedIngredient" class="form-control col-3 m-1">
+		</div>
+		<div class="row"> 
+			<label for="updateProtein_gIngredient" class="col-2 m-1"> protein_g:  </label>
+			<input type="text" value="Nieuwe waarde" id="updateProtein_gIngredient" class="form-control col-3 m-1">
+		</div>
+		<div class="row"> 
+			<div class="col-2 m-1"></div>
+			<input type="button" value="updateProtein_g" class="col-3 btn bg-groen color-groen m-1" onclick="updateIngredientProtein_gValue()">
+		</div>
+		
+	</section>
+
 	<br>
 	<br>
 	
 	Get ingredient name by id: <br>
 	<label for ="getIngredeintByid"> Ingredient Id: </label>
-	<input type="text" value = "1" id="ingredientIdInput"><input type="button" value="submit" onclick="getIngredientById()"><div id="ingredientIdOutput"></div>
+	<input type="text" value = "1" id="ingredientIdInput"><input type="button" value="submit" class="btn bg-groen color-groen m-1" onclick="getIngredientById()"><div id="ingredientIdOutput"></div>
 	
 	<br>
 	<br>
@@ -55,7 +76,7 @@
 	<br>
 	<textarea type="text" value="Beschrijving" id="recipeDescription"></textarea>
 	<br>
-	<input type="button" value="submit new recipe" onclick="addNewRecipe()">
+	<input type="button" value="submit new recipe" class="btn bg-groen color-groen m-1"onclick="addNewRecipe()">
 	
 	<br>
 	<br>
@@ -64,7 +85,7 @@
 	Send recipe to:
 	<input type="text" value="Naam recept" id="mailRecipeNameInput">
 	<input type="email" value="michielherpers@gmail.com" id="mailAdressInput">
-	<input type="button" value="Send recipe via mail" onclick="sendRecipeByMail()">
+	<input type="button" class="btn bg-groen color-groen" value="Send recipe via mail" onclick="sendRecipeByMail()">
 	</body>
 
 </html>

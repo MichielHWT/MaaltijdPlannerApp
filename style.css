@@ -1,2 +1,34 @@
+/* de volgende sites gebruik ik om de style classes uit bootstrap te vinden:
+- https://bootstrapcreative.com/resources/bootstrap-4-css-classes-index/
+- w3schools
 
+de punt bij een selector geeft aan dat het om een class gaat, staat er niets dan is het een tag. 
+met # volgensmij kan je op id selecteren
 
+als je elementen aanmaakt in js, zoals tabellen etc. dan kan je in js hetvolgende doen [naamVanElement].className = "[style classes die je wil toevoegen]"
+*/
+
+body {
+    background-color: FCFFF7;
+}
+/* ik heb nu deze kleur als achtergrond gekozen, maar je kan zelf wat anders kiezen. Ik vind die site die ik je op app had gestuurd handig om te kijken of kleuren matchen of schema's te laten generen als je zelf een of twee kleuren 'op slot hebt gezet'*/
+
+/* achtergrond kleuren te gebruiken voor elementen, bootstrap heeft hier ook presets voor met andere namen*/
+.bg-groen {
+    background-color: #69CD6F;
+}
+
+.bg-oranje {
+    background-color: #ED9121;
+}
+
+/*kleur om aan tekst elementen toe te voegen*/
+.color-groen {
+    color: #256B2A;
+    /* ik heb voor tekst kleur een donkeredere groen gekozen, zodat dat mooier is op de button */
+}
+
+.color-oranje {
+    color: #ED9121;
+
+}
