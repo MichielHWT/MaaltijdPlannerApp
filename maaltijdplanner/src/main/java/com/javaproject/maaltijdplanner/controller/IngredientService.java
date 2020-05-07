@@ -43,19 +43,8 @@ public class IngredientService{
             ir.deleteById(ingredientId);
         }
 
-        //Update ingredient in SQL database based on Id and requested field to change with given new value
-        public void updateIngredientProtein_g(long ingredientIdLong, double newProtein_gValue){
-            Iterable<Ingredient> allIngredients = ir.findAll();
-            for(Ingredient ingredient : allIngredients){
-                if(ingredient.getId() == ingredientIdLong){
-                   ingredient.setProtein_g(newProtein_gValue);
-                }
-            }
+        //Update ingredient in SQL database
+        public void updateIngredient(Ingredient ingredient){
+            ir.save(ingredient);
         }
-
-        public List<Ingredient> uitproberen(){
-            return ir.findAllByHighProteinTrue();
-        }
-
-
 }

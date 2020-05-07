@@ -7,28 +7,20 @@ import javax.persistence.Id;
 
 @Entity
 public class Ingredient {
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String naam;
     private String name;
     private String naam2;
-    private String measureUnit;
     private double amount;
+    private String measureUnit;
     private double energy_kJ;
     private double energy_kcal;
     private double protein_g;
-    private boolean highProtein;
-
-    public void ingredientHighProtein(){
-        if(this.protein_g > 20) {
-            this.highProtein = true;
-        }
-        else{
-            this.highProtein = false;
-        }
-    }
 
     public long getId() {
         return id;
@@ -100,13 +92,5 @@ public class Ingredient {
 
     public void setProtein_g(double protein_g) {
         this.protein_g = protein_g;
-    }
-
-    public boolean isHighProtein() {
-        return highProtein;
-    }
-
-    public void setHighProtein(boolean highProtein) {
-        this.highProtein = highProtein;
     }
 }

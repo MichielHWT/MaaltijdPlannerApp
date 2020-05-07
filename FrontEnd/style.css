@@ -32,3 +32,19 @@ body {
     color: #ED9121;
 
 }
+.pre-scrollable { 
+	
+}
+
+.table-striped{
+	
+}
+
+.invisibleByDefault{
+	display: none;
+	
+}
+
+.visibleByDefault{
+	display : block;
+}

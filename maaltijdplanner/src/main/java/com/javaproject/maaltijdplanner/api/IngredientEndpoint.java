@@ -41,12 +41,9 @@ public class IngredientEndpoint {
         is.deleteIngredient(ingredientIdLong);
     }
 
-    @PutMapping("/updateIngredientProtein_g/{ingredientId}")
-    public void updateIngredientProtein_g(@PathVariable String ingredientId, @RequestBody String newFieldValue){
-        System.out.println("Update Ingredient Table");
-        long ingredientIdLong = Long.parseLong(ingredientId);
-        double newProtein_gValue = Double.parseDouble(newFieldValue);
-        is.updateIngredientProtein_g(ingredientIdLong, newProtein_gValue);
+    @PutMapping("/updateIngredient")
+    public void updateIngredient(@RequestBody Ingredient ingredient){
+        System.out.println("Update Ingredient in database");
+        is.updateIngredient(ingredient);
     }
-
 }
