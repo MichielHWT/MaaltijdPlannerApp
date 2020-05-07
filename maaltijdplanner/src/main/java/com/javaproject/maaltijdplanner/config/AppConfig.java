@@ -1,6 +1,5 @@
 package com.javaproject.maaltijdplanner.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +8,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-@ConfigurationProperties(prefix = "spring.mail")
 @Configuration
+@ConfigurationProperties(prefix="spring.mail")
 public class AppConfig {
 
     private String host;
@@ -18,9 +17,26 @@ public class AppConfig {
     private String username;
     private String password;
 
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
         mailSender.setHost(host);
         mailSender.setPort(port);
         mailSender.setUsername(username);

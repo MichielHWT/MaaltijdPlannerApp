@@ -12,8 +12,5 @@ public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
     //2 via methodenamen naamanalyse reserveerdewoorden icm fieldnamen
     //3 gebruik @Query --> variant van SQL, JPQL (Java persistent query language)
 
-    List<Ingredient> findAllByHighProteinTrue();
-
-    //List<Ingredient>
 
 }
