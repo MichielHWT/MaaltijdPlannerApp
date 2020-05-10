@@ -35,7 +35,8 @@ function getIngredientTable(){
 					}					
 				}
 				tableString += "<td><input type=\"button\" value=\"edit\" onclick=\"editIngredient(" + dataArray[a].id + ")\"></td>"; //Add edit button
-				tableString += "<td><input type=\"button\" value=\"delete\" onclick=\"deleteIngredientPopUp(" + dataArray[a].id + ")\"></td>"; //Add delete button
+				//tableString += "<td><input type=\"button\" value=\"delete\" onclick=\"deleteIngredientPopUp(" + dataArray[a].id + ")\"></td>"; //Add delete button
+				tableString += "<td><input type=\"button\" value=\"delete\" onclick=\"deleteIngredient(" + dataArray[a].id + ")\"></td>"; //Add delete button
 				tableString += "</tr>";
 			}
 			tableString += "</tbody></table>";
@@ -91,6 +92,7 @@ function updateIngredient(ingredientId){
 		ingredientObject[cellLabel] = document.getElementById("row" + ingredientId + "cell" + cellLabel + "IngredientTable").value;
 		document.getElementById("ingredientTable").rows[ingredientId].cells[i].innerHTML = document.getElementById("row" + ingredientId + "cell" + cellLabel + "IngredientTable").value;
 	}
+	document.getElementById("ingredientTable").rows[ingredientId].cells[tableLine.cells.length-2].innerHTML = "<input type=\"button\" value=\"edit\" onclick=\"editIngredient(" + ingredientId + ")\">"; //edit button
 	console.log(ingredientObject);
 	var JSONIngredientObject = JSON.stringify(ingredientObject);	
 	var xhr = new XMLHttpRequest();
@@ -204,13 +206,66 @@ function getIngredientById(ingredientId){
 	xhr.send(idJSON);
 }
 
-function getIngredientByName(){
+async function getInputSearchBarIngredient(){
+	var inputSearchIngredient = document.getElementById("inputSearchIngredientByName").value;
+	var listOfIngredients = await getIngredientByName(inputSearchIngredient);
+	createDropDownMenu(listOfIngredients);
+}
+
+function getIngredientByName(ingredientName){
+	return new Promise(function(resolve,reject){
+		/*
+			GET request to BackEnd IngredientEndpoint to get Ingredient object from "maaltijdplanner_database/ingredient" database with a specific name
+		*/
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4){
+				listOfIngredients = JSON.parse(this.responseText);
+				//console.log(listOfIngredients);
+				//createDropDownMenu(listOfIngredients);
+				resolve(listOfIngredients);
+			}
+		}
+		
+		xhr.open("GET", "http://localhost:8083//getIngredientByName//" + ingredientName, true); 
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send();	
+	});
+}
+
+function createDropDownMenu(listOfIngredients){
 	/*
-		GET request to BackEnd IngredientEndpoint to get Ingredient object from "maaltijdplanner_database/ingredient" database with a specific name
+		Create the drop down menu with <select> https://www.w3schools.com/tags/tag_select.asp
 		
-		Ingredient name is taken from the text input with the id ""
+		Use <mark></mark> to highlight the searched characters
 	*/
+	document.getElementById("searchIngredientDropDownMenu").innerHTML = "";
+	var inputSearchIngredient = document.getElementById("inputSearchIngredientByName").value;
+	//console.log(listOfIngredients);
+	//var newElement = document.createElement("");
+	//for(ingredient in listOfIngredients)
+	for(var i = 0; i < listOfIngredients.length; ++i)
+	{
+		//console.log(listOfIngredients[i].name);
+		var newElement = document.createElement("option");
+		newElement.value = listOfIngredients[i].name;
+		var newElementText = document.createTextNode(listOfIngredients[i].name);
+		newElement.appendChild(newElementText);
+		document.getElementById("searchIngredientDropDownMenu").appendChild(newElement);
+	}
+	//document.getElementById("searchIngredientDropDownMenu").appendChild(newElement);
+}
+
+async function addIngredientToRecipe(){
+	/*
+		Add Ingredient chosen in the search bar to the ingredient list for making a recipe
 		
-	
+	*/
+	ingredientName = document.getElementById("searchIngredientDropDownMenu").value;
+	console.log(ingredientName);
+	var ingredientObjectList = await getIngredientByName(ingredientName);
+	var ingredientObject = ingredientObjectList[0];
+	console.log(ingredientObject);
+	document.getElementById("ingredientLine").innerHTML = ingredientObject.name;
 }
 					

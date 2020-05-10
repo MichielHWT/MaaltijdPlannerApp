@@ -12,9 +12,18 @@ public class Account {
 
     private String name;
     private String password;
+    private String mailadress;
 
     @OneToMany //Links entity, rechts field
     private List<Recipe> recipeList = new ArrayList<>();
+
+    public String getMailadress() {
+        return mailadress;
+    }
+
+    public void setMailadress(String mailadress) {
+        this.mailadress = mailadress;
+    }
 
     public long getId() {
         return id;
@@ -40,6 +49,7 @@ public class Account {
         this.password = password;
     }
 
+
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
@@ -47,4 +57,5 @@ public class Account {
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
     }
+
 }

@@ -16,6 +16,17 @@ public class Recipe {
     @ManyToMany //Links entity, rechts field
     private List<Ingredient> ingredientsList = new ArrayList<>();
 
+    @OneToOne
+    private Image imageFile;
+
+    public Image getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(Image imageFile) {
+        this.imageFile = imageFile;
+    }
+
     public long getId() {
         return id;
     }

@@ -28,6 +28,11 @@ public class IngredientEndpoint {
         return is.ingredientById(ingredientIdLong);
     }
 
+    @GetMapping("/getIngredientByName/{searchIngredientName}")
+    public Iterable<Ingredient> getIngredientByName(@PathVariable String searchIngredientName){
+        return is.ingredientByName(searchIngredientName);
+    }
+
     @PostMapping("/addIngredient")
     public void addIngredient(@RequestBody Ingredient ingredient){
         System.out.println("Add Ingredient to database");
