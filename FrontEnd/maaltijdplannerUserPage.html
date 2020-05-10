@@ -5,11 +5,42 @@
 		<script src="scriptIngredientEndpoint.js"></script>	
 		<script src="scriptRecipeEndpoint.js"></script>
 		<script src="scriptGeneral.js"></script>
+		<script src="scriptAccountEndpoint.js"></script>
 	</head>
 
 	<body class="m-5 color-groen">
-		User page
+		<h1>Maaltijdplanner</h1>
 		<hr>
+		User page
+		<div>
+			<h2><text value="User-name" id="accountNameUser"></h2>
+		</div>
+		<hr>
+		
+		<div>
+			<h2>Create a recipe</h2>
+		</div>
+		
+		<section class="form">
+			<div class="row">
+				<label for="ingredientLine" class="col-2 m-1">Ingredient list: </label>
+				<div id="ingredientLine">
+				</div>
+			</div>
+		
+			<div class="row">
+				<label for="inputSearchIngredientByName" class="col-2 m-1">Search ingredient: </label>
+				<input type="text" oninput="getInputSearchBarIngredient()" id="inputSearchIngredientByName" class="form-control col-3 m-1"><select id="searchIngredientDropDownMenu"></select>
+				<input type="button" value="Add to recipe" onclick="addIngredientToRecipe()">
+			</div>
+			<div>
+				<form method="POST" enctype="multipart/form-data" name="fileUploadForm">
+				<input type="text" name="title"/><br/>
+				<input type="file" name="image"/><br/><br/>
+				<!--<input type="submit" value="Submit" id="btnSubmit"/>-->
+			</div>
+		</form>
+		</section>
 	</body>
 
 </html>

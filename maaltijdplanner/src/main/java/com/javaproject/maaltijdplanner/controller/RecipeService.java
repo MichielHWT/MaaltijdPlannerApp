@@ -18,6 +18,10 @@ public class RecipeService {
     @Autowired
     IngredientRepository ir;
 
+    public Iterable<Recipe> getRecipeTable(){
+        return rr.findAll();
+    }
+
     public void createNewRecipe(String ingredientsIdsAsString, Recipe recipe){
          String[] ingredientsIdArrayAsString = ingredientsIdsAsString.split("_");
         for (int i = 0; i < ingredientsIdArrayAsString.length; ++i){

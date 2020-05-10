@@ -19,6 +19,11 @@ public class RecipeEndpoint {
     @Autowired
     MailService ms;
 
+    @GetMapping("/getRecipeTable")
+    public Iterable<Recipe> getRecipeTable(){
+        return rs.getRecipeTable();
+    }
+
     @PostMapping("/recipe/{ingredientsIdsAsString}")
     public void createNewRecipe(@PathVariable String ingredientsIdsAsString, @RequestBody Recipe recipe){
         rs.createNewRecipe(ingredientsIdsAsString, recipe);

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,23 @@ public class IngredientService{
                 ingredient = null;
             }
             return ingredient;
+        }
+
+        public Iterable<Ingredient> ingredientByName(String searchIngredientName){
+            ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
+            Iterable<Ingredient> allIngredients = ir.findAll();
+            for (Ingredient ingredient : allIngredients){
+                if((ingredient.getNaam()).toLowerCase().contains(searchIngredientName.toLowerCase())){
+                    ingredientList.add(ingredient);
+                }
+                else if((ingredient.getName()).toLowerCase().contains(searchIngredientName.toLowerCase())){
+                    ingredientList.add(ingredient);
+                }
+                else if((ingredient.getNaam2()).toLowerCase().contains(searchIngredientName.toLowerCase())){
+                    ingredientList.add(ingredient);
+                }
+            }
+            return ingredientList;
         }
 
         //Get new ingredient from FrontEnd to add to SQL database

@@ -5,11 +5,27 @@
 		<script src="scriptIngredientEndpoint.js"></script>	
 		<script src="scriptRecipeEndpoint.js"></script>
 		<script src="scriptGeneral.js"></script>
+		<script src="scriptAccountEndpoint.js"></script>
 	</head>
 
 	<body class="m-5 color-groen">
-		login page
+		<h1>Maaltijdplanner</h1>
 		<hr>
+		<h2>Login page</h2>
+		<hr>
+		
+		<section class="form">
+			<div class="row">
+				<label for="postNaamIngredient" class="col-2 m-1">Account name: </label>
+				<input type="text" id="inputAccountName">
+			</div>
+			<div class="row">
+				<input type="button" value="Login" onclick="loginAccount()" class="col-4 m-1 btn bg-groen color-groen" >
+			</div>
+		</section>
+		
+		
+		
 	</body>
 
 </html>

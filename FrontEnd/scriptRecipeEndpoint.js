@@ -60,8 +60,29 @@ function removeRecipeTable(){
 	document.getElementById("showRecipeButton" ).style.display = "block";
 }
 
+function showAddRecipe(){
+	/*
+		When clicked on "Add recipe" button show the form in which new recipe object fields can be filled in
+		
+		This excludes id
+	*/
+	console.log("Add new recipe called");
+	var display = document.getElementById("addRecipe").style.display;
+	console.log(display);
+	if(display == "block"){
+		document.getElementById("addRecipe").style.display = "";
+		document.getElementById("addNewRecipeButton").value = "Add new recipe";
+		console.log("Add recipe closed");
+	}
+	else if(display == ""){
+		document.getElementById("addRecipe").style.display = "block";
+		document.getElementById("addNewRecipeButton").value = "Cancel add new recipe";
+		console.log("Add recipe open");
+	}
+}
 
-function addNewRecipe(){
+
+function addNewRecipe2(){
 	/*
 		POST request to BackEnd RecipeEndpoint to add Recipe object to "maaltijdplanner_database/recipe" database
 		
@@ -83,7 +104,6 @@ function addNewRecipe(){
 	xhr.setRequestHeader("Content-type", "application/json"); 
 	xhr.send(recipeJSON);		
 }
-
 
 
 function sendRecipeByMail(){
