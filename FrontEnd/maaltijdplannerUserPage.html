@@ -6,6 +6,7 @@
 		<script src="scriptRecipeEndpoint.js"></script>
 		<script src="scriptGeneral.js"></script>
 		<script src="scriptAccountEndpoint.js"></script>
+		<script src="scriptImageEndpoint.js"></script>
 	</head>
 
 	<body class="m-5 color-groen">
@@ -23,24 +24,79 @@
 		
 		<section class="form">
 			<div class="row">
-				<label for="ingredientLine" class="col-2 m-1">Ingredient list: </label>
+				<label for="inputSearchIngredientByName" class="col-2 m-1">Search ingredient: </label>
+				<input type="text" oninput="getInputSearchBarIngredient()" id="inputSearchIngredientByName" class="form-control col-3 m-1"><select id="searchIngredientDropDownMenu"></select>
+				<input type="button" value="Add to recipe" onclick="addIngredientToRecipeList()" class="btn bg-groen color-groen">
+			</div>
+			<br>
+			<div class="row">
 				<div id="ingredientLine">
 				</div>
 			</div>
-		
+			<br>
 			<div class="row">
-				<label for="inputSearchIngredientByName" class="col-2 m-1">Search ingredient: </label>
-				<input type="text" oninput="getInputSearchBarIngredient()" id="inputSearchIngredientByName" class="form-control col-3 m-1"><select id="searchIngredientDropDownMenu"></select>
-				<input type="button" value="Add to recipe" onclick="addIngredientToRecipe()">
+				<label for="recipeName" class="col-2 m-1">Recipe name: </label>
+				<input type="text" id="recipeName">
 			</div>
-			<div>
-				<form method="POST" enctype="multipart/form-data" name="fileUploadForm">
-				<input type="text" name="title"/><br/>
-				<input type="file" name="image"/><br/><br/>
-				<!--<input type="submit" value="Submit" id="btnSubmit"/>-->
+			<br>
+			<div class="row"> 
+				<label for="postDescriptionRecipe" class="col-2 m-1">Description: </label>
+				<textarea id="postDescriptionRecipe" rows="4" cols="50" class="form-control col-3 m-1"></textarea>
 			</div>
-		</form>
+			<br>
+			<div class="row">
+				<label for="imageUpload" class="col-2 m-1">Choose image: </label>
+				<div id="imageUpload">
+					<form method="POST" enctype="multipart/form-data" name="fileUploadForm">
+					<input type="text" value="Image title" name="title" id="imageTitle"><br/>
+					<input type="file" name="image" accept="image/*" onchange="openFile(event)" id="postImageRecipe"><br/><br/>
+					</form>
+					<input type="button" id="buttonRemoveImage" value="Remove image" class="btn bg-groen color-groen invisibleByDefault" onclick="removeUploadedImage()">
+				</div>
+			</div>
+			<div class="col">
+				<img id="uploadedRecipeImage">
+			</div>
+			<div class="row">
+				<input type="button" value="Submit" onclick="addNewRecipeUser()" class="btn bg-groen color-groen form-control col-3 m-1">
+			</div>
+		</section>
+		<br>
+		<hr>
+		<br>
+		<div>
+			<h2>Search recipe</h2>
+		</div>
+		
+		<section class="form">
+			<div class="row">
+				<label for="inputSearchRecipetByName" class="col-2 m-1">Search recipe by name: </label>
+				<input type="text" oninput="getInputSearchBarRecipe()" id="inputSearchRecipeByName" class="form-control col-3 m-1"><select id="searchRecipeDropDownMenu"></select>
+				<input type="button" value="Choose this recipe" onclick="addRecipeToEmail()" class="btn bg-groen color-groen">
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<label for="inputSearchRecipetByIngredientName" class="col-2 m-1">Search recipe by ingredient name: </label>
+				<input type="text" oninput="getInputSearchBarRecipeByIngredient()" id="inputSearchRecipeByIngredientName" class="form-control col-3 m-1"><select id="searchRecipeByIngredientDropDownMenu"></select>
+			</div>
+			<div class="row">
+				<div id="showRecipe">
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				Send recipe to:
+				<input type="text" value="Name recipe" id="mailRecipeNameInput">
+				<input type="email" value="michielherpers@gmail.com" id="mailAdressInput">
+				<input type="button" value="Send recipe via mail" onclick="sendRecipeByMail()" class="btn bg-groen color-groen">
+			</div>			
+			<br>
+			<br>
+			<br>
+			<br>
+			<hr>
 		</section>
 	</body>
-
 </html>

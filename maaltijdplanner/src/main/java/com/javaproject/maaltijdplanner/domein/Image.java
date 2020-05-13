@@ -12,6 +12,9 @@ public class Image {
     @Column(name = "binaryImageFile", columnDefinition="BLOB")
     byte[] binaryImageFile;
 
+    public Image(){
+
+    }
     public Image(String fileName, byte[] binaryImageFile){
         this.fileName = fileName;
         this.binaryImageFile = binaryImageFile;

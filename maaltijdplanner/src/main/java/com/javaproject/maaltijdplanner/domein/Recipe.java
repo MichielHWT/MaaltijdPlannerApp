@@ -13,6 +13,10 @@ public class Recipe {
     private String name;
     private String description;
 
+    @ElementCollection
+    @CollectionTable(name="listOfAmounts")
+    private List<Double> amountList = new ArrayList<>();
+
     @ManyToMany //Links entity, rechts field
     private List<Ingredient> ingredientsList = new ArrayList<>();
 
@@ -59,5 +63,17 @@ public class Recipe {
 
     public List<Ingredient> getIngredientsList(){
         return ingredientsList;
+    }
+
+    public void addToAmountList(Double amount){
+        this.amountList.add(amount);
+    }
+
+    public List<Double> getAmountList(){
+        return amountList;
+    }
+
+    public double getAmountListItem(int index){
+        return amountList.get(index);
     }
 }

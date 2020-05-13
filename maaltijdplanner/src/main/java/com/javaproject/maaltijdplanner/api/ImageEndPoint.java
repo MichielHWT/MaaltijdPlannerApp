@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 
 @RestController
 public class ImageEndPoint {
@@ -27,5 +28,10 @@ public class ImageEndPoint {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/getImageByName/{imageName}")
+    public byte[] getImageByName(@PathVariable String imageName){
+        return ims.getImageByName(imageName);
     }
 }

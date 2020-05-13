@@ -81,6 +81,40 @@ function showAddRecipe(){
 	}
 }
 
+async function addNewRecipeUser(){
+	/*
+		POST request to BackEnd RecipeEndpoint to add Recipe object to "maaltijdplanner_database/recipe" database
+		
+		From User page
+	*/
+	await addUploadedImage();
+	
+	var newRecipe = {};
+	newRecipe.name = document.getElementById("recipeName").value;
+	newRecipe.description = document.getElementById("postDescriptionRecipe").value;
+	newRecipe.amountList = [];
+	newRecipe.ingredientNameList = [];
+	newRecipe.imageName = document.getElementById("imageTitle").value;
+	var table = document.getElementById("ingredientRecipeTable");
+	for(var i=0; i < (table.tBodies[0].rows.length -1); ++i){
+		//console.log(table.tBodies[0].rows[i].cells[0].innerHTML);
+		//console.log(table.tBodies[0].rows[i].cells[1].getElementsByTagName("input")[0].value);
+		newRecipe.amountList[i] = table.tBodies[0].rows[i].cells[1].getElementsByTagName("input")[0].value;
+		newRecipe.ingredientNameList[i] = table.tBodies[0].rows[i].cells[0].innerHTML;
+	}
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if(this.readyState == 4){
+			location.reload();
+		}
+	}
+	recipeJSON = JSON.stringify(newRecipe);
+	xhr.open("POST", "http://localhost:8083//addNewrecipe", true); 
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.send(recipeJSON);
+}
+
 
 function addNewRecipe2(){
 	/*
@@ -106,6 +140,7 @@ function addNewRecipe2(){
 }
 
 
+
 function sendRecipeByMail(){
 	/*
 		POST request to BackEnd MailEndpoint to RecipeEndpoint to send the recipe description of given recipe by e-mail to given mailadress
@@ -125,4 +160,60 @@ function sendRecipeByMail(){
 	xhr.open("POST", "http://localhost:8083//sendMailRecipe//" + recipeName, true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.send(emailAdress);
+}
+
+async function getInputSearchBarRecipe(){
+	var inputSearchRecipe = document.getElementById("inputSearchRecipeByName").value;
+	var listOfRecipe = await getRecipeByName(inputSearchRecipe);
+	console.log(listOfRecipe);
+	createDropDownMenu(listOfRecipe);
+}
+
+async function getInputSearchBarRecipeByIngredient(){
+	var inputSearchRecipe = document.getElementById("inputSearchRecipeByName").value;
+	var listOfRecipe = await getRecipeByIngredientName(inputSearchRecipe);
+	createDropDownMenuRecipe(listOfRecipe);
+}
+
+function getRecipeByName(recipeName){
+	return new Promise(function(resolve,reject){
+		/*
+			GET request to BackEnd RecipeEndpoint to get Recipe object from "maaltijdplanner_database/recipe" database with a specific name
+		*/
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4){
+				listOfRecipes = JSON.parse(this.responseText);
+				resolve(listOfRecipes);
+			}
+		}
+		
+		xhr.open("GET", "http://localhost:8083//getRecipeByName//searchRecipeName" + recipeName, true); 
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send();	
+	});
+}
+
+function createDropDownMenuRecipe(listOfRecipes){
+	/*
+		Create the drop down menu with <select> https://www.w3schools.com/tags/tag_select.asp
+	*/
+	document.getElementById("searchRecipeDropDownMenu").innerHTML = "";
+	var inputSearchRecipe = document.getElementById("inputSearchRecipeByName").value;
+	for(var i = 0; i < listOfRecipes.length; ++i)
+	{
+		var newElement = document.createElement("option");
+		newElement.value = listOfRecipes[i].name;
+		var newElementText = document.createTextNode(listOfRecipes[i].name);
+		newElement.appendChild(newElementText);
+		document.getElementById("searchRecipeDropDownMenu").appendChild(newElement);
+	}
+}
+
+function addRecipeToEmail(){
+	document.getElementById("mailRecipeNameInput").value = document.getElementById("searchRecipeDropDownMenu").value;
+}
+
+function getRecipeByIngredientName(ingredientName){
+	
 }

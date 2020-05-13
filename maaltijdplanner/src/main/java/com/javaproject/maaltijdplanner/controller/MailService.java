@@ -1,6 +1,7 @@
 package com.javaproject.maaltijdplanner.controller;
 
 import com.javaproject.maaltijdplanner.config.AppConfig;
+import com.javaproject.maaltijdplanner.domein.Ingredient;
 import com.javaproject.maaltijdplanner.domein.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,6 +24,14 @@ public class MailService {
         for (Recipe recipe : allRecipes){
             if (recipe.getName().equals(recipeName)){
                 recipeDescription = recipe.getDescription();
+                recipeDescription += "\n";
+                recipeDescription += "List of ingredient: \n";
+                for (Ingredient ingredient : recipe.getIngredientsList()){
+
+                    for(double amount : recipe.getAmountList()){
+                        recipeDescription += amount + "g " + ingredient.getName() + "\n";
+                    }
+                }
             }
         }
 
