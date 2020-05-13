@@ -27,18 +27,32 @@ function addUploadedImage(){
 		https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 	*/
 	//var form = document.forms.namedItem("fileinfo");
-	formData = new FormData(document.forms.namedItem("fileUploadForm"));
-	var xhr = new XMLHttpRequest();
-	//var formData = new FormData();
-	//onsole.log(document.getElementById("postImageRecipe").files);
-	//var fileName = document.getElementById("postImageRecipe").value;
-	//var newImagefile = document.getElementById("postImageRecipe").files[0];
-	//formData.append(fileName, newImagefile);
-	console.log(formData);
-	for (var [key, value] of formData.entries()) { 
-		console.log(key, value);
-	}
-	xhr.open("POST", "http://localhost:8083//addUploadedImage", true);
-	xhr.send(formData);		
+	return new Promise(function(resolve,reject){
+		formData = new FormData(document.forms.namedItem("fileUploadForm"));
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(this.readyState == 4){				
+				resolve("finished");
+			}
+		}
+		//var formData = new FormData();
+		//onsole.log(document.getElementById("postImageRecipe").files);
+		//var fileName = document.getElementById("postImageRecipe").value;
+		//var newImagefile = document.getElementById("postImageRecipe").files[0];
+		//formData.append(fileName, newImagefile);
+		//console.log(formData);
+		for (var [key, value] of formData.entries()) { 
+			//console.log(key, value);
+		}
+		xhr.open("POST", "http://localhost:8083//addUploadedImage", true);
+		xhr.send(formData);	
+	});	
+}
+
+function getImage(){
+	/*
+		GET Request to the Backend to get the Image Blob data of an image in the database
+	*/
+	
 }
 

@@ -256,16 +256,112 @@ function createDropDownMenu(listOfIngredients){
 	//document.getElementById("searchIngredientDropDownMenu").appendChild(newElement);
 }
 
-async function addIngredientToRecipe(){
+var ingredientCounter = 0;
+var ingredientIdCounter = 0;
+
+async function addIngredientToRecipeList(){
 	/*
-		Add Ingredient chosen in the search bar to the ingredient list for making a recipe
-		
+		Add Ingredient chosen in the search bar to the ingredient list for making a recipe		
 	*/
 	ingredientName = document.getElementById("searchIngredientDropDownMenu").value;
 	console.log(ingredientName);
 	var ingredientObjectList = await getIngredientByName(ingredientName);
 	var ingredientObject = ingredientObjectList[0];
 	console.log(ingredientObject);
-	document.getElementById("ingredientLine").innerHTML = ingredientObject.name;
+	var tableString = "";
+	if(ingredientCounter == 0){
+		tableString = "<table id=\"ingredientRecipeTable\" style=width:100% class=\"table table-striped\">";
+		tableString += "<thead><tr><th scope=\"col\">Ingredient name</th>" +
+					"<th scope=\"col\">Amount (g)</th>" +
+					"<th scope=\"col\">Energy (kcal)</th>" +
+					"<th scope=\"col\">Protein (g)</th>" +
+					"<th scope=\"col\"></th></tr></thead>";
+					
+	tableString += "<tbody><tr id=\"" + ingredientIdCounter + "\">" +
+					"<td>" + ingredientObject.name + "</td>" +
+					"<td><input type=\"text\" value=\"100\" id=\"gramIngredient" + ingredientIdCounter + "\" onchange=\"changeGramIngredient("+ingredientIdCounter+")\"></td>" +
+					"<td>" + ingredientObject.energy_kcal + "</td>" +
+					"<td>" + ingredientObject.protein_g + "</td>" +
+					"<td><input type=\"button\" value=\"Remove\" onclick=\"removeIngredientFromRecipe(" + ingredientIdCounter + ")\"></td>" +
+					"</tr>";
+	
+	
+	tableString += "<tr id=\"rowTotal\"><td>Total</td>" +
+					"<td></td>" +
+					"<td></td>" +
+					"<td></td>" +
+					"<td></td>" +
+					"</tr></tbody></table>";
+	document.getElementById("ingredientLine").innerHTML = tableString;
+	}
+	else{
+		var newRow = document.createElement("tr");
+		newRow.setAttribute("id", ingredientIdCounter);
+		newRow.innerHTML = "<td>" + ingredientObject.name + "</td>" +
+					"<td><input type=\"text\" value=\"100\" id=\"gramIngredient" + ingredientIdCounter + "\" onchange=\"changeGramIngredient("+ingredientIdCounter+")\"></td>" +
+					"<td>" + ingredientObject.energy_kcal + "</td>" +
+					"<td>" + ingredientObject.protein_g + "</td>" +
+					"<td><input type=\"button\" value=\"Remove\" onclick=\"removeIngredientFromRecipe(" + ingredientIdCounter + ")\"></td>";
+		var totalRow = document.getElementById("rowTotal");
+		totalRow.parentNode.insertBefore(newRow, totalRow);
+	}
+	++ingredientCounter;
+	++ingredientIdCounter;
+	calcTotal();
+}
+
+function calcTotal(){
+	/*
+		updates value of row Total in table Ingredients of Recipe
+	*/
+	var table = document.getElementById("ingredientRecipeTable");
+	//console.log(table);
+	var totalEnergy = 0;
+	var totalProtein = 0;
+	for (var i=0; i < ingredientCounter; ++i){
+		//console.log(table.tBodies[0]);
+		//console.log(table.tBodies[0].rows[i].cells[2].innerHTML);
+		totalEnergy += Number(table.tBodies[0].rows[i].cells[2].innerHTML);
+		totalProtein += Number(table.tBodies[0].rows[i].cells[3].innerHTML);
+	}
+	//console.log(document.getElementById("rowTotal"));
+	document.getElementById("rowTotal").cells[2].innerHTML = totalEnergy;
+	document.getElementById("rowTotal").cells[3].innerHTML = totalProtein;
+}
+
+function removeIngredientFromRecipe(id){
+	/*
+		Remove table row ingredient in recipe
+	*/
+	document.getElementById(id).remove();
+	--ingredientCounter;
+	if(ingredientCounter == 0){
+		document.getElementById("rowTotal").cells[2].innerHTML = 0;
+		document.getElementById("rowTotal").cells[3].innerHTML = 0;
+	}
+	else{
+		calcTotal();
+	}
+}
+
+var oldFactor = 100;
+
+function changeGramIngredient(id){
+	/*
+		Multiply the amount of kcal/protein
+		
+		If filled in no number or negative give default 100 g
+	*/
+	var newFactor = document.getElementById("gramIngredient" + id).value;
+	//console.log(newFactor);
+	var row = document.getElementById(id);
+	var oldEnergy = row.cells[2].innerHTML;
+	var oldProtein = row.cells[3].innerHTML;
+	//console.log(oldEnergy);
+	row.cells[2].innerHTML = ((Number(oldEnergy)/Number(oldFactor))*Number(newFactor));
+	//console.log(row.cells[2]);
+	row.cells[3].innerHTML = ((Number(oldProtein)/Number(oldFactor))*Number(newFactor));
+	oldFactor = newFactor;
+	calcTotal();
 }
 					
